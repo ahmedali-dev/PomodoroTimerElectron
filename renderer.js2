@@ -1,0 +1,124 @@
+
+// renderer.js
+let timer;
+let timeLeft;
+let isStudyTime = true;
+let currentSession = 1;
+let totalSessions;
+let studyDuration;
+let breakDuration;
+let isPaused = false;
+let endSound;
+
+function startStudySession() {
+    const studyMinutes = parseInt(document.getElementById('studyMinutes').value);
+    const breakMinutes = parseInt(document.getElementById('breakMinutes').value);
+    totalSessions = parseInt(document.getElementById('sessions').value);
+
+    if (isNaN(studyMinutes) || isNaN(breakMinutes) || isNaN(totalSessions) || 
+        studyMinutes <= 0 || breakMinutes <= 0 || totalSessions <= 0) {
+        alert('Please enter valid numbers for all fields.');
+        return;
+    }
+    playSound();
+    studyDuration = studyMinutes * 60;
+    breakDuration = breakMinutes * 60;
+    currentSession = 1;
+    isStudyTime = true;
+    startTimer(studyDuration);
+    updateSessionInfo();
+}
+
+function startTimer(duration) {
+    clearInterval(timer);
+    timeLeft = duration;
+    isPaused = false;
+    updateTimerDisplay();
+    timer = setInterval(() => {
+        if (timeLeft > 0) {
+            timeLeft--;
+            updateTimerDisplay();
+        } else {
+            handleTimerEnd();
+        }
+    }, 1000);
+    document.getElementById('pauseResumeBtn').textContent = 'Pause';
+}
+
+function updateTimerDisplay() {
+    const minutes = Math.floor(timeLeft / 60);
+    const seconds = timeLeft % 60;
+    document.getElementById('timerDisplay').textContent = 
+        `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+}
+
+function playSound() {
+  endSound = document.getElementById('endSound');
+}
+
+function playSoundStart() {
+  endSound.play().catch(err => console.log('play sound errrpr => ',err));
+  setTimeout(() => {
+    endSound.pause();
+  }, 5000);
+}
+
+function handleTimerEnd() {
+    clearInterval(timer);
+    if (isStudyTime) {
+        if (currentSession < totalSessions) {
+            playSoundStart();
+            alert('Study session ended. Take a break!');
+            isStudyTime = false;
+            startTimer(breakDuration);
+            //playSoundStart();
+        } else {
+            playSoundStart();
+            alert('All study sessions completed!');
+            resetTimer();
+            //playSoundStart();      
+        }
+    } else {
+        playSoundStart();
+        alert('Break ended. Back to studying!');
+        isStudyTime = true;
+        currentSession++;
+        startTimer(studyDuration);
+ //       playSoundStart();
+    }
+    updateSessionInfo();
+}
+
+function updateSessionInfo() {
+    const sessionInfo = document.getElementById('sessionInfo');
+    if (currentSession <= totalSessions) {
+        sessionInfo.textContent = `Session ${currentSession} of ${totalSessions} - ${isStudyTime ? 'Studying' : 'Break'}`;
+    } else {
+        sessionInfo.textContent = 'All sessions completed!';
+    }
+}
+
+function pauseResumeTimer() {
+    if (isPaused) {
+        startTimer(timeLeft);
+        document.getElementById('pauseResumeBtn').textContent = 'Pause';
+    } else {
+        clearInterval(timer);
+        isPaused = true;
+        document.getElementById('pauseResumeBtn').textContent = 'Resume';
+    }
+}
+
+function stopTimer() {
+    clearInterval(timer);
+    resetTimer();
+}
+
+function resetTimer() {
+    clearInterval(timer);
+    document.getElementById('timerDisplay').textContent = '00:00';
+    document.getElementById('sessionInfo').textContent = '';
+    document.getElementById('pauseResumeBtn').textContent = 'Pause';
+    isPaused = false;
+}
+

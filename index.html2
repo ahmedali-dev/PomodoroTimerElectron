@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Study Timer App</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+        }
+        .input-group {
+            margin-bottom: 15px;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        #timerDisplay {
+            font-size: 48px;
+            text-align: center;
+            margin: 20px 0;
+        }
+        #sessionInfo {
+            text-align: center;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        .controls {
+            display: flex;
+            justify-content: space-between;
+        }
+        .controls button {
+            flex: 1;
+            margin: 0 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Study Timer App</h1>
+        <div class="input-group">
+            <input type="number" id="studyMinutes" placeholder="Study minutes (e.g., 50)">
+        </div>
+        <div class="input-group">
+            <input type="number" id="breakMinutes" placeholder="Break minutes (e.g., 10)">
+        </div>
+        <div class="input-group">
+            <input type="number" id="sessions" placeholder="Number of sessions">
+        </div>
+        <button onclick="startStudySession()">Start Study Session</button>
+        
+        <div id="timerDisplay">00:00</div>
+        <div id="sessionInfo"></div>
+        
+        <div class="controls">
+            <button onclick="pauseResumeTimer()" id="pauseResumeBtn">Pause</button>
+            <button onclick="stopTimer()">Stop</button>
+        </div>
+    </div>
+
+    <audio id="endSound" src="./endSession.mp3"></audio>
+
+    <script src="renderer.js"></script>
+</body>
+</html>

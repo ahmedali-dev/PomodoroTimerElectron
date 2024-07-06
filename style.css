@@ -1,0 +1,67 @@
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: #f0f0f0;
+}
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  gap: 2rem;
+}
+.container .left .form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-flow: column;
+}
+
+.container .left .form.active{
+  display: none;
+}
+
+.container .left .options .stop {
+  background: lightblue;
+  border-color: lightblue;
+  color: #333;
+  border-radius: .3rem;
+}
+.container .left .options {
+  display: none;
+}
+
+ .container .left .options.active{
+  display: flex;
+  align-items:center;
+  justify-content: center;
+}
+
+.container .left .startStudy.active{
+  display:none
+}
+#timerCircle {
+  width: 200px;
+  height: 200px;
+}
+#timerDisplay {
+  font-size: 24px;
+  margin-top: 10px;
+}
+input,
+button {
+  margin: 5px;
+  padding: 5px;
+}
+#sessionInfo {
+  margin-top: 10px;
+}
+
