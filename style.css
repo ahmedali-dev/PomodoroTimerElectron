@@ -51,6 +51,13 @@ body {
 #timerCircle {
   width: 200px;
   height: 200px;
+  transition: .4s ease-in-out;
+}
+
+#timerCircle #timerProgress {
+  stroke-linecap: round;
+  transition: all 1s;
+  stroke: lightsteelblue;
 }
 #timerDisplay {
   font-size: 24px;

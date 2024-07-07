@@ -86,17 +86,21 @@ function updateTimerDisplay() {
 function handleTimerEnd() {
     clearInterval(timer);
     document.getElementById('endSound').play();
+
+    setTimeout(() => {
+      document.getElementById('endSound').pause();
+    }, 5000);
     if (isStudyTime) {
         if (currentSession < totalSessions) {
-            alert('Study session ended. Take a break!');
+            //alert('Study session ended. Take a break!');
             isStudyTime = false;
             startTimer(breakDuration);
         } else {
-            alert('All study sessions completed!');
+            //alert('All study sessions completed!');
             resetTimer();
         }
     } else {
-        alert('Break ended. Back to studying!');
+  //      alert('Break ended. Back to studying!');
         isStudyTime = true;
         currentSession++;
         startTimer(studyDuration);
